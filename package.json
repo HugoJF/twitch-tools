@@ -18,8 +18,13 @@
         "tw": "npm run test-watch",
         "ci": "jest build --env=node --ci --coverage --collectCoverageFrom=build/**/*.js"
     },
-    "author": "",
+    "author": "Hugo Jeller",
+    "keywords": ["twitch", "library"],
     "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/HugoJF/twitch-tools.git"
+    },
     "dependencies": {
         "@types/fluent-ffmpeg": "^2.1.16",
         "@types/jest": "^26.0.21",
