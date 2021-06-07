@@ -1,13 +1,13 @@
 import pool                                                     from 'tiny-async-pool';
 import {EventEmitter}                                           from 'events';
-import {ensureAppDirectoryExists, existsSync, write, writeFile} from './filesystem';
-import {TransferSpeedCalculator}                                from './transfer-speed-calculator';
+import {ensureAppDirectoryExists, existsSync, write, writeFile} from '../helpers/filesystem';
+import {TransferSpeedCalculator}                                from '../helpers/transfer-speed-calculator';
 import {ClipFetcher}                                            from './clip-fetcher';
-import {getClipUrl}                                             from './clip-url-fetcher';
-import {Downloader}                                             from './downloader';
-import {Clip, Dict}                                             from './types';
-import {appPath}                                                from './utils';
-import {logger}                                                 from './logger';
+import {getClipUrl} from './clip-url-fetcher';
+import {Downloader} from '..';
+import {Clip, Dict} from '..';
+import {appPath} from '..';
+import {logger}  from '..';
 
 type ExtraOptions = {
     parallelDownloads?: number;

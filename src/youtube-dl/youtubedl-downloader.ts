@@ -1,13 +1,10 @@
-import os                                    from 'os';
-import fs                                    from 'fs';
-import {YOUTUBEDL_PERMISSION, YOUTUBEDL_URL} from './configs';
-import {ensureDirectoryExists, exists}       from './filesystem';
-import {binPath, sleep}                      from './utils';
-import {Downloader}                          from './downloader';
-import {logger}                              from './logger';
+import os                                                                  from 'os';
+import fs                                                                  from 'fs';
+import {binPath, Downloader, ensureDirectoryExists, exists, logger, sleep} from '..';
+import {YOUTUBEDL_URL}                                                     from '../configs';
 
 export class YoutubedlDownloader {
-    async download(): Promise<void> {
+    async download(permission: fs.Mode = 0o755): Promise<void> {
         const output = this.path();
         const url = this.url();
 
@@ -23,7 +20,7 @@ export class YoutubedlDownloader {
         await downloader.download();
 
         // TODO: move this to downloader
-        fs.chmodSync(output, YOUTUBEDL_PERMISSION);
+        fs.chmodSync(output, permission);
 
         // Delay return to avoid EBUSY errors
         await sleep(1000);

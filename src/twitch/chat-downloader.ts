@@ -1,9 +1,6 @@
-import {EventEmitter}        from 'events';
-import {Video, VideoComment} from './types';
-import {videosPath}          from './utils';
-import {writeFile}           from './filesystem';
-import {instance}            from './twitch';
-import {logger}              from './logger';
+import {EventEmitter}                                       from 'events';
+import {logger, Video, VideoComment, videosPath, writeFile} from '..';
+import {instance}                                           from './twitch';
 
 export class ChatDownloader extends EventEmitter {
     private video: Video;

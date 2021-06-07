@@ -1,13 +1,10 @@
-import pool                                                          from 'tiny-async-pool';
-import * as fns                                                      from 'date-fns';
-import {formatRFC7231}                                               from 'date-fns';
-import {EventEmitter}                                                from 'events';
-import {generateBatches, iterable, pathableDate, sleep, splitPeriod} from './utils';
-import {Clip, Dict, Period, TwitchClipsApiResponse}                  from './types';
-import {API_INSTANCES, BATCH_CLIP_THRESHOLD}                         from './configs';
-import {checkCache, getCache, saveCache}                             from './cache';
-import {instance}                                                    from './twitch';
-import {logger}                                                      from './logger';
+import pool                                                                                                                                               from 'tiny-async-pool';
+import * as fns                                                                                                                                           from 'date-fns';
+import {formatRFC7231}                                                                                                                                    from 'date-fns';
+import {EventEmitter}                                                                                                                                     from 'events';
+import {checkCache, Clip, Dict, generateBatches, getCache, iterable, logger, pathableDate, Period, saveCache, sleep, splitPeriod, TwitchClipsApiResponse} from '..';
+import {API_INSTANCES, BATCH_CLIP_THRESHOLD}                                                                                                              from '../configs';
+import {instance}                                                                                                                                         from './twitch';
 
 export class ClipFetcher extends EventEmitter {
     private readonly userId: string;

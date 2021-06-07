@@ -2,7 +2,7 @@ import path                          from 'path';
 import * as fns                      from 'date-fns';
 import {differenceInMinutes, format} from 'date-fns';
 import {logger}                      from './logger';
-import {Period}                      from './types';
+import {Period}                      from '..';
 
 const SPLIT_FACTOR = 2;
 
@@ -108,11 +108,19 @@ export function bpsToHuman(bps: number): string {
 
 export function convert(amount: number) {
     return {
+        byte: {
+            to: {
+                bits: () => amount * 8,
+                kB: () => amount / 1024,
+                mB: () => convert(amount).byte.to.kB() / 1024,
+            },
+        },
         Bps: {
             to: {
-                Mbps: () => amount / 1000 / 1000 * 8,
+                Mbps: () => convert(convert(amount).byte.to.mB()).byte.to.bits(),
             }
         },
+
         seconds: {
             to: {
                 millis: () => amount * 1000

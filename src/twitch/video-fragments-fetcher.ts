@@ -1,7 +1,6 @@
-import axios     from 'axios';
-import youtubedl from './youtubedl';
-import {logger}  from './logger';
-import {Dict}    from './types';
+import axios          from 'axios';
+import youtubedl      from '../youtube-dl/youtubedl';
+import {Dict, logger} from '..';
 
 // FIXME: properly parse the .m3u8?
 const firstManifestStreamPattern = /#EXT-X-STREAM.*?\n(http.*?\.m3u8)/;

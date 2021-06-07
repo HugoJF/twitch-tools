@@ -1,6 +1,5 @@
-import {Clip, YoutubeDlClipDump} from './types';
-import youtubedl                 from './youtubedl';
-import {logger}                  from './logger';
+import {Clip, logger, YoutubeDlClipDump} from '..';
+import youtubedl                         from '../youtube-dl/youtubedl';
 
 export async function getClipUrl(clip: Clip): Promise<string | null> {
     logger.verbose(`Fetching clip URL for: ${clip.title}`);

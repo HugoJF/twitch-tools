@@ -1,7 +1,6 @@
-import {EventEmitter}                         from 'events';
-import {Dict, TwitchVideosApiResponse, Video} from './types';
-import {iterable, sleep}                      from './utils';
-import {instance}                             from './twitch';
+import {EventEmitter}                                          from 'events';
+import {Dict, iterable, sleep, TwitchVideosApiResponse, Video} from '..';
+import {instance}                                              from './twitch';
 
 export class VideosFetcher extends EventEmitter {
     private readonly userId: string;

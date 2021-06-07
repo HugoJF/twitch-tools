@@ -1,9 +1,7 @@
-import {EventEmitter}             from 'events';
-import {ensureAppDirectoryExists} from './filesystem';
-import {VideoDownloader}          from './video-downloader';
-import {VideosFetcher}            from './videos-fetcher';
-import {Dict, Video}              from './types';
-import {logger}                   from './logger';
+import {EventEmitter}                                  from 'events';
+import {Dict, ensureAppDirectoryExists, logger, Video} from '..';
+import {VideoDownloader}                               from './video-downloader';
+import {VideosFetcher}                                 from './videos-fetcher';
 
 type ExtraOptions = {
     parallelDownloads?: number;

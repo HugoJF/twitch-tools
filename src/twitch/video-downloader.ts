@@ -1,14 +1,9 @@
-import pool                                              from 'tiny-async-pool';
-import ffmpeg                                            from 'fluent-ffmpeg';
-import {EventEmitter}                                    from 'events';
-import {ensureAppDirectoryExists, existsSync, writeFile} from './filesystem';
-import {appPath, bpsToHuman, videosPath}                 from './utils';
-import {TransferSpeedCalculator}                         from './transfer-speed-calculator';
-import {VideoFragmentsFetcher}                           from './video-fragments-fetcher';
-import {ChatDownloader}                                  from './chat-downloader';
-import {Dict, Video}                                     from './types';
-import {Downloader}                                      from './downloader';
-import {logger}                                          from './logger';
+import pool                                                                                                                                         from 'tiny-async-pool';
+import ffmpeg                                                                                                                                       from 'fluent-ffmpeg';
+import {EventEmitter}                                                                                                                               from 'events';
+import {appPath, bpsToHuman, Dict, Downloader, ensureAppDirectoryExists, existsSync, logger, TransferSpeedCalculator, Video, videosPath, writeFile} from '..';
+import {VideoFragmentsFetcher}                                                                                                                      from './video-fragments-fetcher';
+import {ChatDownloader}                                                                                                                             from './chat-downloader';
 
 type ExtraOptions = {
     parallelDownloads?: number;
