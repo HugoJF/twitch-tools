@@ -19,7 +19,10 @@
         "ci": "jest build --env=node --ci --coverage --collectCoverageFrom=build/**/*.js"
     },
     "author": "Hugo Jeller",
-    "keywords": ["twitch", "library"],
+    "keywords": [
+        "twitch",
+        "library"
+    ],
     "license": "ISC",
     "repository": {
         "type": "git",

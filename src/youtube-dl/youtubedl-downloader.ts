@@ -1,7 +1,9 @@
 import os                                                                  from 'os';
 import fs                                                                  from 'fs';
 import {binPath, Downloader, ensureDirectoryExists, exists, logger, sleep} from '..';
-import {YOUTUBEDL_URL}                                                     from '../configs';
+
+// youtube-dl download path (filename is 'youtube-dl' when OS is Linux, and 'youtube-dl.exe' when OS is windows')
+export const YOUTUBEDL_URL = 'https://github.com/ytdl-org/youtube-dl/releases/latest/download/{filename}';
 
 export class YoutubedlDownloader {
     async download(permission: fs.Mode = 0o755): Promise<void> {
