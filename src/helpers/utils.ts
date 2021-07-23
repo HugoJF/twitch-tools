@@ -55,12 +55,11 @@ export function apiDelay(remaining: number, total: number, resetTime: number): n
 }
 
 export function binPath(p = ''): string {
-    return path.resolve(process.env.BIN_PATH ?? 'bin', p);
+    return path.resolve(process.env.BIN_PATH ?? appPath('bin'), p);
 }
 
-// FIXME: 2 resolve() calls, why?
 export function appPath(p = ''): string {
-    const basePath = process.env.BASEPATH ?? path.resolve(__dirname, '..');
+    const basePath = process.env.BASEPATH ?? process.cwd();
 
     return path.resolve(basePath, p);
 }
