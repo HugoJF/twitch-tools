@@ -1,5 +1,5 @@
 import {EventEmitter}                                       from 'events';
-import {logger, Video, VideoComment, videosPath, writeFile} from '..';
+import {ensureDirectoryExists, logger, Video, VideoComment, videosPath, writeFile} from '..';
 import {instance}                                           from './twitch';
 
 export class ChatDownloader extends EventEmitter {
@@ -11,9 +11,11 @@ export class ChatDownloader extends EventEmitter {
 
         this.video = video;
         this.comments = [];
+
+        ensureDirectoryExists(videosPath());
     }
 
-    async download(): Promise<void> {
+    async download(): Promise<VideoComment[]> {
         let cursor = undefined;
 
         logger.info(`Started downloading chat data from video ${this.video.id}`);
@@ -33,5 +35,7 @@ export class ChatDownloader extends EventEmitter {
         logger.info(`Finished chat download from video ${this.video.id}, storing to disk...`);
         await writeFile(videosPath(`${this.video.id}.chat`), JSON.stringify(this.comments));
         logger.info(`Chat data from video ${this.video.id} stored to disk`);
+
+        return this.comments;
     }
 }

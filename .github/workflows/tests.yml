@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run b
+        run: npm run build
 
       - name: Copy .env file
         uses: canastro/copy-file-action@master
@@ -29,7 +29,10 @@ jobs:
           target: '.env'
 
       - name: Test
-        run: npm run ci
+        run: npm run tests-ci
+        env:
+          TW_CLIENT_ID: ${{ secrets.TW_CLIENT_ID }}
+          TW_CLIENT_SECRET: ${{ secrets.TW_CLIENT_SECRET }}
 
       - uses: codecov/codecov-action@v1
         with:

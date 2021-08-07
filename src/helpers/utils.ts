@@ -64,7 +64,7 @@ export function appPath(p = ''): string {
     return path.resolve(basePath, p);
 }
 
-export function videosPath(p: string): string {
+export function videosPath(p = ''): string {
     return path.resolve(appPath('videos'), p);
 }
 

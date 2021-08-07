@@ -11,10 +11,6 @@ export * from './helpers/transfer-speed-calculator';
 export * from './helpers/utils';
 
 
-// Deprecated
-export * from './configs';
-
-
 // Twitch related
 export * from './twitch/twitch';
 
