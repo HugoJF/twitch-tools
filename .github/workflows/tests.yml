@@ -29,7 +29,7 @@ jobs:
           target: '.env'
 
       - name: Test
-        run: npm run tests-ci
+        run: npm run test-ci
         env:
           TW_CLIENT_ID: ${{ secrets.TW_CLIENT_ID }}
           TW_CLIENT_SECRET: ${{ secrets.TW_CLIENT_SECRET }}
