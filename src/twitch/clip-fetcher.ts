@@ -1,15 +1,30 @@
-import pool                                                                                                                                               from 'tiny-async-pool';
-import * as fns                                                                                                                                           from 'date-fns';
-import {formatRFC7231}                                                                                                                                    from 'date-fns';
-import {EventEmitter}                                                                                                                                     from 'events';
-import {checkCache, Clip, Dict, generateBatches, getCache, iterable, logger, pathableDate, Period, saveCache, sleep, splitPeriod, TwitchClipsApiResponse} from '..';
-import {API_INSTANCES, BATCH_CLIP_THRESHOLD}                                                                                                              from '../configs';
-import {instance}                                                                                                                                         from './twitch';
+import pool from 'tiny-async-pool';
+import * as fns from 'date-fns';
+import {instance} from './twitch';
+import {EventEmitter} from 'events';
+import {formatRFC7231} from 'date-fns';
+import {
+    checkCache,
+    Clip,
+    Dict,
+    generateBatches,
+    getCache,
+    iterable,
+    logger,
+    pathableDate,
+    Period,
+    saveCache,
+    sleep,
+    splitPeriod,
+    TwitchClipsApiResponse
+} from '..';
 
 export class ClipFetcher extends EventEmitter {
     private readonly userId: string;
 
     private readonly clips: Dict<Clip>;
+    private readonly apiInstances = 20;
+    private readonly batchClipThreshold = 500;
 
     constructor(userId: string) {
         super();
@@ -87,8 +102,8 @@ export class ClipFetcher extends EventEmitter {
 
         logger.verbose(`Period ${formatRFC7231(left)} to ${formatRFC7231(right)} resulted in ${clipCount} clips`);
 
-        if (clipCount > BATCH_CLIP_THRESHOLD) {
-            logger.info(`Found ${clipCount} in one period, which is above the ${BATCH_CLIP_THRESHOLD} limit, splitting period...`);
+        if (clipCount > this.batchClipThreshold) {
+            logger.info(`Found ${clipCount} in one period, which is above the ${this.batchClipThreshold} limit, splitting period...`);
             const newPeriods = splitPeriod(period);
 
             const newClipsDicts: Dict<Clip>[] = [];
@@ -162,7 +177,7 @@ export class ClipFetcher extends EventEmitter {
             this.emit('batch-finished');
         };
 
-        await pool(API_INSTANCES, batches, process);
+        await pool(this.apiInstances, batches, process);
 
         return this.clips;
     }

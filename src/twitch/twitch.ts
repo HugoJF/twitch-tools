@@ -1,6 +1,23 @@
-import axios                                                                                                                                                                                                                                                                                                     from 'axios';
-import {apiDelay, convert, HelixOptions, logger, OAuth2Options, readFile, sleep, TwitchClipsApiParams, TwitchClipsApiResponse, TwitchUsersApiParams, TwitchUsersApiResponse, TwitchVideoCommentsApiParams, TwitchVideoCommentsApiResponse, TwitchVideosApiParams, TwitchVideosApiResponse, V5Options, writeFile} from '..';
-import {API_TOKEN_PATH}                                                                                                                                                                                                                                                                                          from '../configs';
+import axios from 'axios';
+import {
+    apiDelay,
+    convert,
+    HelixOptions,
+    logger,
+    OAuth2Options,
+    readFile,
+    sleep,
+    TwitchClipsApiParams,
+    TwitchClipsApiResponse,
+    TwitchUsersApiParams,
+    TwitchUsersApiResponse,
+    TwitchVideoCommentsApiParams,
+    TwitchVideoCommentsApiResponse,
+    TwitchVideosApiParams,
+    TwitchVideosApiResponse,
+    V5Options,
+    writeFile
+} from '..';
 
 let _instance: Twitch;
 
@@ -15,21 +32,19 @@ export function instance(): Twitch {
 }
 
 export class Twitch {
-    private readonly clientId: string;
-    private readonly clientSecret: string;
-
     private token: string;
 
-    constructor(clientId: string, clientSecret: string) {
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-
+    constructor(
+        private readonly clientId: string,
+        private readonly clientSecret: string,
+        private readonly apiTokenPath = 'token.txt'
+    ) {
         this.token = '';
     }
 
     async load(): Promise<void> {
         try {
-            const buffer = await readFile(API_TOKEN_PATH);
+            const buffer = await readFile(this.apiTokenPath);
             this.token = buffer.toString();
             logger.info('Read Twitch API OAuth2 token from file.');
         } catch (e) {
@@ -139,7 +154,7 @@ export class Twitch {
             throw new Error('API did not generate an access_token');
         }
 
-        writeFile(API_TOKEN_PATH, this.token);
+        writeFile(this.apiTokenPath, this.token);
 
         return this.token.toString();
     }
