@@ -1,5 +1,5 @@
 import {EventEmitter}                                          from 'events';
-import {Dict, iterable, sleep, TwitchVideosApiResponse, Video} from '..';
+import {Dict, iterable, logger, sleep, TwitchVideosApiResponse, Video} from '..';
 import {instance}                                              from './twitch';
 
 export class VideosFetcher extends EventEmitter {
@@ -22,13 +22,13 @@ export class VideosFetcher extends EventEmitter {
             const {headers, status, data} = response;
 
             if (status !== 200) {
-                console.error(`Error while fetching videos [code ${status}]: ${data.data}`);
+                logger.error(`Error while fetching videos [code ${status}]: ${data.data}`);
                 process.exit(1);
             }
 
             return data;
         } catch (e) {
-            console.error('Error while paginating the API', e);
+            logger.error('Error while paginating the API', e);
 
             return false;
         }
@@ -43,14 +43,14 @@ export class VideosFetcher extends EventEmitter {
             const response = await responsePromise;
 
             if (response === false) {
-                console.error('Error while paginating, waiting a few seconds before continuing...');
+                logger.error('Error while paginating, waiting a few seconds before continuing...');
                 await sleep(10000);
 
                 continue;
             }
 
             if (!iterable(response.data)) {
-                console.error('API returned 200 but data is not iterable, waiting before trying again...');
+                logger.error('API returned 200 but data is not iterable, waiting before trying again...');
                 await sleep(10000);
 
                 continue;

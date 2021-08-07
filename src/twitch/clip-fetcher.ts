@@ -33,13 +33,13 @@ export class ClipFetcher extends EventEmitter {
             const {headers, status, data} = response;
 
             if (status !== 200) {
-                console.error(`Error while fetching clips [code ${status}]: ${data.data}`);
+                logger.error(`Error while fetching clips [code ${status}]: ${data.data}`);
                 process.exit(1);
             }
 
             return data;
         } catch (e) {
-            console.error('Error while paginating the API', e);
+            logger.error('Error while paginating the API', e);
 
             return false;
         }

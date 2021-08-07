@@ -31,9 +31,9 @@ export class Twitch {
         try {
             const buffer = await readFile(API_TOKEN_PATH);
             this.token = buffer.toString();
-            console.log('Read Twitch API OAuth2 token from file.');
+            logger.info('Read Twitch API OAuth2 token from file.');
         } catch (e) {
-            console.log('Could not read Twich API OAuth2 token from file, generating another one...');
+            logger.info('Could not read Twich API OAuth2 token from file, generating another one...');
 
             await this.generateToken();
         }
@@ -126,7 +126,7 @@ export class Twitch {
         });
 
         if (response.status !== 200 && response.status !== 201) {
-            console.log(`Failed to generate Twitch API token, response status: ${response.status}`);
+            logger.info(`Failed to generate Twitch API token, response status: ${response.status}`);
             logger.verbose({responseData: response.data});
             throw new Error(response.statusText);
         }
