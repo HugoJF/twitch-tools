@@ -12,6 +12,8 @@ jobs:
     timeout-minutes: 2
 
     steps:
+      - uses: actions/checkout@v2
+
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v3
         with:
