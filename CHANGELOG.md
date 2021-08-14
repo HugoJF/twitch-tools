@@ -1,3 +1,12 @@
+# [0.4.0](https://github.com/HugoJF/twitch-tools/compare/v0.3.0...v0.4.0) (2021-08-14)
+
+
+### Features
+
+* **clips-downloader:** emit event when a clip is downloaded ([32cc4b5](https://github.com/HugoJF/twitch-tools/commit/32cc4b5da3ec559198543fa7f121c2c7aeb98e61))
+
+
+
 # [0.3.0](https://github.com/HugoJF/twitch-tools/compare/v0.0.2...v0.3.0) (2021-08-07)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * **tests:** typo in github actions npm script ([d1eb215](https://github.com/HugoJF/twitch-tools/commit/d1eb215e5508ce92be251c4558c33924a06b09c4))
-
-
-
-## [0.2.2](https://github.com/HugoJF/twitch-tools/compare/v0.2.1...v0.2.2) (2021-08-07)
-
-
-### Bug Fixes
-
-* **tests:** added missing file ([522fc7a](https://github.com/HugoJF/twitch-tools/commit/522fc7afac273e259d06e674e9abbed700ccf3c6))
 
 
 
