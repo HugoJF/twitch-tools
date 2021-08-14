@@ -85,5 +85,7 @@ export class ClipsDownloader extends EventEmitter {
         }
 
         await Promise.all(promises);
+
+        this.emit('clip-downloaded', clip);
     }
 }
