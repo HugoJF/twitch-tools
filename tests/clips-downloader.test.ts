@@ -17,8 +17,11 @@ test('test clip downloader will not raise exception', async () => {
     const channel = 'de_nerdTV';
     const user = await instance().api().users({login: channel});
     const userId = user.data.data[0].id;
+    let eventCounter = 0;
 
     const clipDownloader = new ClipsDownloader(channel, userId);
-
+    clipDownloader.on('clip-downloaded', clip => eventCounter++);
     await clipDownloader.start();
+
+    expect(eventCounter).toBeGreaterThan(0);
 },600000);

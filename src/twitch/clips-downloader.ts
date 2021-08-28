@@ -1,14 +1,13 @@
 import pool                                                     from 'tiny-async-pool';
 import {EventEmitter}                                           from 'events';
-import {ensureAppDirectoryExists, existsSync, write, writeFile} from '../helpers/filesystem';
+import {ensureAppDirectoryExists, write} from '../helpers/filesystem';
 import {TransferSpeedCalculator}                                from '../helpers/transfer-speed-calculator';
 import {ClipFetcher}                                            from './clip-fetcher';
-import {getClipUrl} from './clip-url-fetcher';
-import {Downloader} from '..';
 import {Clip, Dict} from '..';
 import {appPath} from '..';
 import {logger}  from '..';
 import {ClipDownloader} from './clip-downloader';
+import {emit} from 'cluster';
 
 type ExtraOptions = {
     parallelDownloads?: number;
@@ -44,6 +43,7 @@ export class ClipsDownloader extends EventEmitter {
         return write(appPath(`${channel}.meta`), JSON.stringify(data));
     };
 
+    // clips
     async downloadClips(clips: Dict<Clip>): Promise<void> {
         const clipCount = Object.values(clips).length;
 
@@ -61,6 +61,8 @@ export class ClipsDownloader extends EventEmitter {
     private async downloadClip(clip: Clip): Promise<void> {
         const clipDownloader = new ClipDownloader(clip);
         await clipDownloader.download();
+
+        this.emit('clip-downloaded', clip);
     }
 
     async start() {
