@@ -4,6 +4,7 @@ import {EventEmitter} from 'events';
 import {TransferSpeedCalculator} from './transfer-speed-calculator';
 import {appPath} from './utils';
 import {logger} from './logger';
+import { retry } from '@lifeomic/attempt';
 
 let dryRunning = false;
 
@@ -64,9 +65,13 @@ export class Downloader extends EventEmitter {
                 this.speed.data(chunk.length);
             });
 
-            data.on('close', () => {
+            data.on('close', async () => {
                 logger.verbose(`Download ${this.url} finished on ${this.path}`);
-                fs.renameSync(`${this.path}.progress`, `${this.path}`);
+                await retry(async () => fs.renameSync(`${this.path}.progress`, `${this.path}`), {
+                    delay: 200,
+                    factor: 2,
+                    maxDelay: 1000,
+                });
                 res(this.path);
             });
 
