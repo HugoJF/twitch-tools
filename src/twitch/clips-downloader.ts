@@ -8,6 +8,7 @@ import {Downloader} from '..';
 import {Clip, Dict} from '..';
 import {appPath} from '..';
 import {logger}  from '..';
+import {ClipDownloader} from './clip-downloader';
 
 type ExtraOptions = {
     parallelDownloads?: number;
@@ -57,35 +58,14 @@ export class ClipsDownloader extends EventEmitter {
         logger.info(`Finished download of ${clipCount} clips!`);
     }
 
-    async downloadClip(clip: Clip): Promise<void> {
-        const mp4Path = `clips/${clip.id}.mp4`;
-        const metaPath = `clips/${clip.id}.meta`;
+    private async downloadClip(clip: Clip): Promise<void> {
+        const clipDownloader = new ClipDownloader(clip);
+        await clipDownloader.download();
+    }
 
-        if (existsSync(appPath(mp4Path))) {
-            logger.verbose(`Clip ${clip.title} found at ${appPath(mp4Path)}`);
+    async start() {
+        const clips = await this.fetchClips();
 
-            return;
-        }
-
-        const promises: Promise<any>[] = [];
-        const url = await getClipUrl(clip);
-
-        // TODO: writing individual meta file
-        promises.push(writeFile(appPath(metaPath), JSON.stringify(clip)));
-
-        if (url) {
-            const downloader = new Downloader(url, mp4Path);
-
-            downloader.on('progress', bytes => {
-                this.speed.data(bytes);
-            });
-
-            logger.verbose(`Downloading clip ${clip.title}`);
-            promises.push(downloader.download());
-        }
-
-        await Promise.all(promises);
-
-        this.emit('clip-downloaded', clip);
+        await this.downloadClips(clips);
     }
 }

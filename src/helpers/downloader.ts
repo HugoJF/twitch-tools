@@ -1,9 +1,15 @@
-import fs                        from 'fs';
-import axios                     from 'axios';
-import {EventEmitter}            from 'events';
+import fs from 'fs';
+import axios from 'axios';
+import {EventEmitter} from 'events';
 import {TransferSpeedCalculator} from './transfer-speed-calculator';
-import {appPath}                 from './utils';
-import {logger}                  from './logger';
+import {appPath} from './utils';
+import {logger} from './logger';
+
+let dryRunning = false;
+
+export function dryRuns(enabled = true) {
+    dryRunning = enabled;
+}
 
 export class Downloader extends EventEmitter {
     private readonly url: string;
@@ -46,9 +52,10 @@ export class Downloader extends EventEmitter {
 
     private startDownload() {
         return new Promise(async (res, rej) => {
+            const method = dryRunning ? 'HEAD' : 'GET';
             const {data} = await axios({
                 url: this.url,
-                method: 'GET',
+                method: method,
                 responseType: 'stream'
             });
 

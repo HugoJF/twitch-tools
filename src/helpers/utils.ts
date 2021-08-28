@@ -5,6 +5,17 @@ import {logger}                      from './logger';
 import {Period}                      from '..';
 
 const SPLIT_FACTOR = 2;
+const CLIP_ID_REGEX = /.tv\/(.+?)(?:\?|$)/;
+
+export function twitchClipUrlToId(url: string): string {
+    const match = url.match(CLIP_ID_REGEX);
+
+    if (!match) {
+        throw new Error(`Could extract Twitch Clip ID from URL: ${url}`);
+    }
+
+    return match[1];
+}
 
 export function splitPeriod(period: Period): Period[] {
     // left/right is reversed so we get a positive number

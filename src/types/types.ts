@@ -26,7 +26,7 @@ export type Period = {
 }
 
 export type TwitchClipsApiParams = {
-    broadcaster_id: string,
+    broadcaster_id?: string,
     game_id?: string,
     id?: string,
     after?: string,
