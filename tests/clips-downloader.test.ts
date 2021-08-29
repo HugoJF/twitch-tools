@@ -14,7 +14,7 @@ test('test clip downloader will not raise exception', async () => {
     // Avoid full downloads
     dryRuns();
 
-    const channel = 'de_nerdTV';
+    const channel = 'teaguenho';
     const user = await instance().api().users({login: channel});
     const userId = user.data.data[0].id;
     let eventCounter = 0;

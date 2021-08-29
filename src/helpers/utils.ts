@@ -30,7 +30,7 @@ export function splitPeriod(period: Period): Period[] {
     return generateBatchesFrom(period.left, period.right, ceil);
 }
 
-export function generateBatches(periodDurationHours = 24): Period[] {
+export function generateBatches(periodDurationHours = 24*30): Period[] {
     // The day Twitch Clips were announced
     const left = new Date(2016, 4, 26);
     const right = fns.endOfToday();
