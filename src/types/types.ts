@@ -57,6 +57,7 @@ export type TwitchVideoCommentsApiParams = {
 }
 
 export type TwitchVideosApiParams = {
+    id?: string,
     user_id: string,
     game_id?: string,
     after?: string,
