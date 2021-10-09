@@ -1,3 +1,18 @@
+# [0.5.0](https://github.com/HugoJF/twitch-tools/compare/v0.4.0...v0.5.0) (2021-08-29)
+
+
+### Bug Fixes
+
+* **downloader:** renameSync causing errors if FS doesn't report the downloaded file immediately ([f7fe5a9](https://github.com/HugoJF/twitch-tools/commit/f7fe5a9e85038a3f86ad5bdfc4c7e62ea5c32530))
+* ClipsDownloader not emitting clip-downloaded ([91915f4](https://github.com/HugoJF/twitch-tools/commit/91915f421ebf654a794306fd09193ef071ae0ca0))
+
+
+### Features
+
+* **clips-downloader:** extract single clip download logic to own class ([399080e](https://github.com/HugoJF/twitch-tools/commit/399080e8c1caee9a52770a308cc0ef89580f8a1b))
+
+
+
 # [0.4.0](https://github.com/HugoJF/twitch-tools/compare/v0.3.0...v0.4.0) (2021-08-14)
 
 
@@ -31,15 +46,6 @@
 ### Bug Fixes
 
 * only run conventional changelogs after tests passed ([a4b55d4](https://github.com/HugoJF/twitch-tools/commit/a4b55d4b160d7096835a7ea7a3ab779acb30da45))
-
-
-
-## [0.2.3](https://github.com/HugoJF/twitch-tools/compare/v0.2.2...v0.2.3) (2021-08-07)
-
-
-### Bug Fixes
-
-* **tests:** typo in github actions npm script ([d1eb215](https://github.com/HugoJF/twitch-tools/commit/d1eb215e5508ce92be251c4558c33924a06b09c4))
 
 
 
