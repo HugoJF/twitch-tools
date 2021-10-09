@@ -51,7 +51,8 @@ export class VideoDownloader extends EventEmitter {
         }
     }
 
-    transcode(video: Video): Promise<void> {
+    transcode(): Promise<void> {
+        const video = this.videoOrUrl as Video;
         return new Promise((res, rej) => {
             logger.info(`Started video ${video.id} transcode`);
             ffmpeg()
@@ -78,8 +79,8 @@ export class VideoDownloader extends EventEmitter {
 
     }
 
-    async downloadChat(video: Video): Promise<void> {
-        const chatDownloader = new ChatDownloader(video);
+    async downloadChat(): Promise<void> {
+        const chatDownloader = new ChatDownloader(this.videoOrUrl as Video);
 
         await chatDownloader.download();
     }
