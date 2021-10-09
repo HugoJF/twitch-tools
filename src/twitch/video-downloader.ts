@@ -1,16 +1,30 @@
-import pool                                                                                                                                         from 'tiny-async-pool';
-import ffmpeg                                                                                                                                       from 'fluent-ffmpeg';
-import {EventEmitter}                                                                                                                               from 'events';
-import {appPath, bpsToHuman, Dict, Downloader, ensureAppDirectoryExists, existsSync, logger, TransferSpeedCalculator, Video, videosPath, writeFile} from '..';
-import {VideoFragmentsFetcher}                                                                                                                      from './video-fragments-fetcher';
-import {ChatDownloader}                                                                                                                             from './chat-downloader';
+import pool from 'tiny-async-pool';
+import ffmpeg from 'fluent-ffmpeg';
+import {EventEmitter} from 'events';
+import {
+    appPath,
+    bpsToHuman,
+    Dict,
+    Downloader,
+    ensureAppDirectoryExists,
+    existsSync,
+    instance,
+    logger,
+    TransferSpeedCalculator,
+    twitchClipUrlToId,
+    Video,
+    videosPath,
+    writeFile
+} from '..';
+import {VideoFragmentsFetcher} from './video-fragments-fetcher';
+import {ChatDownloader} from './chat-downloader';
 
 type ExtraOptions = {
     parallelDownloads?: number;
 }
 
 export class VideoDownloader extends EventEmitter {
-    private readonly video: Video;
+    private videoOrUrl: Video | string;
 
     private readonly downloadInstances: number;
 
@@ -19,7 +33,7 @@ export class VideoDownloader extends EventEmitter {
     constructor(video: Video, options: ExtraOptions = {}) {
         super();
 
-        this.video = video;
+        this.videoOrUrl = video;
 
         this.downloadInstances = options.parallelDownloads ?? 20;
 
@@ -28,11 +42,20 @@ export class VideoDownloader extends EventEmitter {
         this.speed.on('speed', this.emit.bind(this, 'speed'));
     }
 
-    transcode(): Promise<void> {
+    async resolveVideo() {
+        if (typeof this.videoOrUrl === 'string') {
+            const id = twitchClipUrlToId(this.videoOrUrl);
+            logger.verbose(`Extracted ID ${id} from URL ${this.videoOrUrl}`);
+            const response = await instance().api().videos({id});
+            this.videoOrUrl = response.data.data[0];
+        }
+    }
+
+    transcode(video: Video): Promise<void> {
         return new Promise((res, rej) => {
-            logger.info(`Started video ${this.video.id} transcode`);
+            logger.info(`Started video ${video.id} transcode`);
             ffmpeg()
-                .input(appPath(`videos/${this.video.id}.all.ts`))
+                .input(appPath(`videos/${video.id}.all.ts`))
                 .inputOption('-safe 0')
                 .inputFormat('concat')
                 .addOption('-bsf:a', 'aac_adtstoasc')
@@ -45,45 +68,47 @@ export class VideoDownloader extends EventEmitter {
                     rej(e);
                 })
                 .on('end', () => {
-                    logger.verbose(`Transcode of ${this.video.id} finished`);
+                    logger.verbose(`Transcode of ${video.id} finished`);
                     res();
                 })
-                .save(appPath(`videos/${this.video.id}.mp4`));
+                .save(appPath(`videos/${video.id}.mp4`));
 
-            logger.info(`Finished video ${this.video.id} transcode`);
+            logger.info(`Finished video ${video.id} transcode`);
         });
 
     }
 
-    async downloadChat(): Promise<void> {
-        const chatDownloader = new ChatDownloader(this.video);
+    async downloadChat(video: Video): Promise<void> {
+        const chatDownloader = new ChatDownloader(video);
 
         await chatDownloader.download();
     }
 
     async download(): Promise<void> {
-        logger.info(`Starting video download [${this.video.id}]: ${this.video.title}`);
-        const urls = await (new VideoFragmentsFetcher(this.video.url)).fragments();
+        const video = this.videoOrUrl as Video;
+
+        logger.info(`Starting video download [${video.id}]: ${video.title}`);
+        const urls = await (new VideoFragmentsFetcher(video.url)).fragments();
 
         // Video metadata
-        writeFile(videosPath(`${this.video.id}.meta`), JSON.stringify(this.video));
+        writeFile(videosPath(`${video.id}.meta`), JSON.stringify(video));
 
         // Fragments ID with URL
-        writeFile(videosPath(`${this.video.id}.fragments`), JSON.stringify(urls));
+        writeFile(videosPath(`${video.id}.fragments`), JSON.stringify(urls));
 
         // Fragment list for ffmpeg
         const ffmpegInput = Object.keys(urls).map(id => {
-            const fragPath = videosPath(`${this.video.id}/${id}'`);
+            const fragPath = videosPath(`${video.id}/${id}'`);
 
             return `file '${fragPath}'`;
         }).join('\n');
-        writeFile(videosPath(`${this.video.id}.all.ts`), ffmpegInput);
+        writeFile(videosPath(`${video.id}.all.ts`), ffmpegInput);
 
         this.emit('fragments-fetched', Object.values(urls).length);
         logger.info(`Found ${Object.values(urls).length} fragments`);
         logger.verbose({urls});
 
-        ensureAppDirectoryExists(`videos/${this.video.id}`);
+        ensureAppDirectoryExists(`videos/${video.id}`);
 
         this.speed.reset();
         this.speed.on('speed', bps => logger.verbose(`Downloading at ${bpsToHuman(bps)}`));
@@ -93,7 +118,7 @@ export class VideoDownloader extends EventEmitter {
         logger.verbose('Starting download pool');
     }
 
-    async downloadFragments(fragmentsUrl: Dict<string>): Promise<void> {
+    private async downloadFragments(fragmentsUrl: Dict<string>): Promise<void> {
         await pool<[string, string], string>(
             this.downloadInstances,
             Object.entries(fragmentsUrl),
@@ -101,9 +126,10 @@ export class VideoDownloader extends EventEmitter {
         );
     }
 
-    async downloadFragment(fragmentData: [string, string]): Promise<string> {
+    private async downloadFragment(fragmentData: [string, string]): Promise<string> {
+        const video = this.videoOrUrl as Video;
         const [name, url] = fragmentData;
-        const path = `videos/${this.video.id}/${name}`;
+        const path = `videos/${video.id}/${name}`;
 
         if (!existsSync(appPath(path))) {
             const downloader = new Downloader(url, path);

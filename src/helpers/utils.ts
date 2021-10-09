@@ -5,7 +5,18 @@ import {logger}                      from './logger';
 import {Period}                      from '..';
 
 const SPLIT_FACTOR = 2;
-const CLIP_ID_REGEX = /.tv\/(.+?)(?:\?|$)/;
+const CLIP_ID_REGEX = /\.tv\/(.+?)(?:\?|$)/;
+const VIDEO_ID_REGEX = /\.tv\/videos\/(\d)+/;
+
+export function twitchVideoUrlToId(url: string): string {
+    const match = url.match(VIDEO_ID_REGEX);
+
+    if (!match) {
+        throw new Error(`Could extract Twitch Video ID from URL: ${url}`);
+    }
+
+    return match[1];
+}
 
 export function twitchClipUrlToId(url: string): string {
     const match = url.match(CLIP_ID_REGEX);
