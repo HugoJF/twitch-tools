@@ -45,7 +45,7 @@ export class VideosDownloader extends EventEmitter {
 
     private async downloadVideo(video: Video) {
         const videoDownloader = new VideoDownloader(video, this.options);
-te
+
         await Promise.all([
             videoDownloader.download(),
             videoDownloader.downloadChat(),
