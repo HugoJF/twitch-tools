@@ -1,9 +1,9 @@
 name: Publish to NPM
 
 on:
-  create:
+  push:
     tags:
-      - "*"
+      - '*'
 
 jobs:
   publish:
