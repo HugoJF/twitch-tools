@@ -1,3 +1,12 @@
+## [0.7.4](https://github.com/HugoJF/twitch-tools/compare/v0.7.3...v0.7.4) (2021-10-13)
+
+
+### Bug Fixes
+
+* only run publish on tag creation v4 ([30f2731](https://github.com/HugoJF/twitch-tools/commit/30f2731ee4a97cb1b84c5e5fc04b424a8b444697))
+
+
+
 ## [0.7.3](https://github.com/HugoJF/twitch-tools/compare/v0.7.2...v0.7.3) (2021-10-13)
 
 
@@ -31,20 +40,6 @@
 ### Features
 
 * bump version ([88b6bab](https://github.com/HugoJF/twitch-tools/commit/88b6babdb060e54367e61a321cae6c4723d9b922))
-
-
-
-# [0.6.0](https://github.com/HugoJF/twitch-tools/compare/v0.5.1...v0.6.0) (2021-10-13)
-
-
-### Bug Fixes
-
-* random typo ([5bef4d0](https://github.com/HugoJF/twitch-tools/commit/5bef4d06e3fd9e53c46aac11d0530b4846e5e689))
-
-
-### Features
-
-* bump version ([86e3aa1](https://github.com/HugoJF/twitch-tools/commit/86e3aa1e89a19e26c75485e82ad2d8af86b8501d))
 
 
 
