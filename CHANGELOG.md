@@ -1,3 +1,12 @@
+## [0.7.3](https://github.com/HugoJF/twitch-tools/compare/v0.7.2...v0.7.3) (2021-10-13)
+
+
+### Bug Fixes
+
+* only run publish on tag creation v3 ([f986d20](https://github.com/HugoJF/twitch-tools/commit/f986d2065aa5dba44579d046574faa51a60e09a4))
+
+
+
 ## [0.7.2](https://github.com/HugoJF/twitch-tools/compare/v0.7.1...v0.7.2) (2021-10-13)
 
 
@@ -36,17 +45,6 @@
 ### Features
 
 * bump version ([86e3aa1](https://github.com/HugoJF/twitch-tools/commit/86e3aa1e89a19e26c75485e82ad2d8af86b8501d))
-
-
-
-## [0.5.1](https://github.com/HugoJF/twitch-tools/compare/v0.5.0...v0.5.1) (2021-10-09)
-
-
-### Bug Fixes
-
-* GitHub Workflow syntax fix ([9b85a6d](https://github.com/HugoJF/twitch-tools/commit/9b85a6d0b63d4a5c67e88d332c9e0fa573ab6b3d))
-* missing id property on TwitchVideosApiParams ([88f2166](https://github.com/HugoJF/twitch-tools/commit/88f21662e4eb3794fe21609ffb71c10875696875))
-* rollback on a few API changes ([3ce086c](https://github.com/HugoJF/twitch-tools/commit/3ce086c35b570cb9e2693d89cd44a0e6c36c6848))
 
 
 
