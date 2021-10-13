@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/HugoJF/twitch-tools/compare/v0.6.0...v0.7.0) (2021-10-13)
+
+
+### Features
+
+* bump version ([88b6bab](https://github.com/HugoJF/twitch-tools/commit/88b6babdb060e54367e61a321cae6c4723d9b922))
+
+
+
 # [0.6.0](https://github.com/HugoJF/twitch-tools/compare/v0.5.1...v0.6.0) (2021-10-13)
 
 
@@ -44,15 +53,6 @@
 ### Features
 
 * **clips-downloader:** emit event when a clip is downloaded ([32cc4b5](https://github.com/HugoJF/twitch-tools/commit/32cc4b5da3ec559198543fa7f121c2c7aeb98e61))
-
-
-
-# [0.3.0](https://github.com/HugoJF/twitch-tools/compare/v0.0.2...v0.3.0) (2021-08-07)
-
-
-### Features
-
-* attempt to fix weird versioning numbers ([7ef4378](https://github.com/HugoJF/twitch-tools/commit/7ef4378927888b78bce0fb3bf2ca5abd7d36acd3))
 
 
 
