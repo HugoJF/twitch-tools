@@ -1,3 +1,17 @@
+# [0.6.0](https://github.com/HugoJF/twitch-tools/compare/v0.5.1...v0.6.0) (2021-10-13)
+
+
+### Bug Fixes
+
+* random typo ([5bef4d0](https://github.com/HugoJF/twitch-tools/commit/5bef4d06e3fd9e53c46aac11d0530b4846e5e689))
+
+
+### Features
+
+* bump version ([86e3aa1](https://github.com/HugoJF/twitch-tools/commit/86e3aa1e89a19e26c75485e82ad2d8af86b8501d))
+
+
+
 ## [0.5.1](https://github.com/HugoJF/twitch-tools/compare/v0.5.0...v0.5.1) (2021-10-09)
 
 
@@ -39,15 +53,6 @@
 ### Features
 
 * attempt to fix weird versioning numbers ([7ef4378](https://github.com/HugoJF/twitch-tools/commit/7ef4378927888b78bce0fb3bf2ca5abd7d36acd3))
-
-
-
-## [0.0.2](https://github.com/HugoJF/twitch-tools/compare/v0.2.4...v0.0.2) (2021-08-07)
-
-
-### Bug Fixes
-
-* generate release commits ([a0ad0fd](https://github.com/HugoJF/twitch-tools/commit/a0ad0fda64353de28b5d1cbc97fea5f400c2c99d))
 
 
 
