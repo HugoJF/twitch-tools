@@ -1,3 +1,12 @@
+## [0.7.1](https://github.com/HugoJF/twitch-tools/compare/v0.7.0...v0.7.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* only run publish on tag creation ([52ec285](https://github.com/HugoJF/twitch-tools/commit/52ec2853f2470e07df5286ca357c3368cd3aead7))
+
+
+
 # [0.7.0](https://github.com/HugoJF/twitch-tools/compare/v0.6.0...v0.7.0) (2021-10-13)
 
 
@@ -44,15 +53,6 @@
 ### Features
 
 * **clips-downloader:** extract single clip download logic to own class ([399080e](https://github.com/HugoJF/twitch-tools/commit/399080e8c1caee9a52770a308cc0ef89580f8a1b))
-
-
-
-# [0.4.0](https://github.com/HugoJF/twitch-tools/compare/v0.3.0...v0.4.0) (2021-08-14)
-
-
-### Features
-
-* **clips-downloader:** emit event when a clip is downloaded ([32cc4b5](https://github.com/HugoJF/twitch-tools/commit/32cc4b5da3ec559198543fa7f121c2c7aeb98e61))
 
 
 
