@@ -23,6 +23,13 @@ type ExtraOptions = {
     parallelDownloads?: number;
 }
 
+export declare interface VideoDownloader {
+    on(event: 'fragments-fetched', listener: (fragmentCount: number) => void): this;
+    on(event: 'fragment-downloaded', listener: (fragmentName: string) => void): this;
+    on(event: 'page-downloaded', listener: () => void): this;
+    on(event: 'speed', listener: (Bps: number) => void): this;
+}
+
 export class VideoDownloader extends EventEmitter {
     private videoOrUrl: Video | string;
 
@@ -30,7 +37,7 @@ export class VideoDownloader extends EventEmitter {
 
     private readonly speed: TransferSpeedCalculator;
 
-    constructor(video: Video|string, options: ExtraOptions = {}) {
+    constructor(video: Video | string, options: ExtraOptions = {}) {
         super();
 
         this.videoOrUrl = video;
@@ -81,6 +88,8 @@ export class VideoDownloader extends EventEmitter {
 
     async downloadChat(): Promise<void> {
         const chatDownloader = new ChatDownloader(this.videoOrUrl as Video);
+
+        chatDownloader.on('page-downloaded', () => this.emit('page-downloaded'));
 
         await chatDownloader.download();
     }

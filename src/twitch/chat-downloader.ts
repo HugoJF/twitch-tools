@@ -2,6 +2,10 @@ import {EventEmitter}                                       from 'events';
 import {ensureDirectoryExists, logger, Video, VideoComment, videosPath, writeFile} from '..';
 import {instance}                                           from './twitch';
 
+export declare interface ChatDownloader {
+    on(event: 'page-downloaded', listener: () => void): this;
+}
+
 export class ChatDownloader extends EventEmitter {
     private video: Video;
     private readonly comments: VideoComment[];
@@ -28,6 +32,7 @@ export class ChatDownloader extends EventEmitter {
             for (const comment of request.data.comments) {
                 this.comments.push(comment);
             }
+            this.emit('page-downloaded');
 
             cursor = request.data._next;
         } while (cursor);
