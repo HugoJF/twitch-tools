@@ -11,7 +11,7 @@ import {
     instance,
     logger,
     TransferSpeedCalculator,
-    twitchClipUrlToId,
+    twitchVideoUrlToId,
     Video,
     videosPath,
     writeFile
@@ -30,7 +30,7 @@ export class VideoDownloader extends EventEmitter {
 
     private readonly speed: TransferSpeedCalculator;
 
-    constructor(video: Video, options: ExtraOptions = {}) {
+    constructor(video: Video|string, options: ExtraOptions = {}) {
         super();
 
         this.videoOrUrl = video;
@@ -44,7 +44,7 @@ export class VideoDownloader extends EventEmitter {
 
     async resolveVideo() {
         if (typeof this.videoOrUrl === 'string') {
-            const id = twitchClipUrlToId(this.videoOrUrl);
+            const id = twitchVideoUrlToId(this.videoOrUrl);
             logger.verbose(`Extracted ID ${id} from URL ${this.videoOrUrl}`);
             const response = await instance().api().videos({id});
             this.videoOrUrl = response.data.data[0];
@@ -86,6 +86,7 @@ export class VideoDownloader extends EventEmitter {
     }
 
     async download(): Promise<void> {
+        await this.resolveVideo();
         const video = this.videoOrUrl as Video;
 
         logger.info(`Starting video download [${video.id}]: ${video.title}`);

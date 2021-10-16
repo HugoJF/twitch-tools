@@ -6,7 +6,7 @@ import {Period}                      from '..';
 
 const SPLIT_FACTOR = 2;
 const CLIP_ID_REGEX = /\.tv\/(.+?)(?:\?|$)/;
-const VIDEO_ID_REGEX = /\.tv\/videos\/(\d)+/;
+const VIDEO_ID_REGEX = /\.tv\/videos\/(\d+)/;
 
 export function twitchVideoUrlToId(url: string): string {
     const match = url.match(VIDEO_ID_REGEX);

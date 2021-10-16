@@ -46,7 +46,7 @@ export class Twitch {
         try {
             const buffer = await readFile(this.apiTokenPath);
             this.token = buffer.toString();
-            logger.info('Read Twitch API OAuth2 token from file.');
+            logger.info(`Read Twitch API OAuth2 token (${this.token}) from file.`);
         } catch (e) {
             logger.info('Could not read Twich API OAuth2 token from file, generating another one...');
 
@@ -65,11 +65,11 @@ export class Twitch {
         });
     }
 
-    async helix<T>(token: string, options: HelixOptions) {
+    async helix<T>(options: HelixOptions) {
         const request = await axios.request<T>({
             baseURL: 'https://api.twitch.tv/helix',
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${this.token}`,
                 'Client-ID': this.clientId,
             },
             ...options
@@ -96,19 +96,19 @@ export class Twitch {
     api() {
         return ({
             clips: (params: TwitchClipsApiParams) => {
-                return this.helix<TwitchClipsApiResponse>(this.token, {
+                return this.helix<TwitchClipsApiResponse>({
                     url: 'clips',
                     params
                 });
             },
             users: (params: TwitchUsersApiParams) => {
-                return this.helix<TwitchUsersApiResponse>(this.token, {
+                return this.helix<TwitchUsersApiResponse>({
                     url: 'users',
                     params
                 });
             },
             videos: (params: TwitchVideosApiParams) => {
-                return this.helix<TwitchVideosApiResponse>(this.token, {
+                return this.helix<TwitchVideosApiResponse>({
                     url: 'videos',
                     params,
                 });
