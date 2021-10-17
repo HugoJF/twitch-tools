@@ -11,7 +11,7 @@ export async function getClipUrl(clip: Clip): Promise<string | null> {
 
         return meta.url;
     } catch (e) {
-        logger.verbose(`youtube-dl: Failed to retrieve the clip URL for ${clip.title}: ${e.message}`);
+        logger.verbose(`youtube-dl: Failed to retrieve the clip URL for ${clip.title}: ${e}`);
 
         return null;
     }

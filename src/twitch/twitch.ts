@@ -148,6 +148,8 @@ export class Twitch {
 
         this.token = response.data?.access_token;
 
+        logger.info(`Received token ${this.token.substr(0, 5)}`);
+
         if (!this.token) {
             logger.error('API did not generate an access_token');
             logger.error(response.data);

@@ -157,7 +157,7 @@ export class ClipFetcher extends EventEmitter {
                     clips = JSON.parse(buffer);
                     loaded = true;
                 } catch (e) {
-                    logger.error(`Error parsing JSON from ${cacheKey}: ${e.message}`);
+                    logger.error(`Error parsing JSON from ${cacheKey}: ${e}`);
                     logger.verbose({e});
                 }
             }
