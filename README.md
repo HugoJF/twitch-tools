@@ -12,13 +12,11 @@ There is ALOT of work currently being done in the library. I try to follow Semve
 
 Expect alot of undocumented things, so feel free to explore the source code to find stuff you might need. I'm just documenting parts that I actually use in other projects (for now).
 
-## Tools available
-
-#### Clips downloader
+## Clips downloader
 
 Fetches clips from a specific channel and downloads them in parallel to increase throughput.
 
-##### Example
+#### Example
 ```typescript
 const clipsDownloader = new ClipsDownloader(channel, userId, [options])
 
@@ -26,16 +24,43 @@ await clipsDownloader.start();
 ```
 
 ##### Constructor
- - `channel`: channel name;
- - `userId`: user ID for that channel [(information)](#how-to-fetch-userid);
- - `options`:
+- `channel`: channel name;
+- `userId`: user ID for that channel [(information)](#how-to-fetch-userid);
+- `options`:
    - `parallelDownloads`: how many clips should be downloaded at the same time (default = 20, higher = more CPU and more network throughput).
 
 ##### Methods
- - `start()`: downloads every Clip from specified channel. Payload is `clip: Clip`.
+- `start()`: downloads every Clip from specified channel. Payload is `clip: Clip`.
 
 ##### Events
- - `clip-downloaded`: emitted after each Clip is downloaded.
+- `clip-downloaded(void)`: emitted after each Clip is downloaded.
+
+## Video downloader
+
+Fetches .m3u8 playlist for specific video and downloads each fragment in parallel to increase network throughput. You can also download the entire chat of a VOD.
+
+#### Example
+```typescript
+const videoDownloader = new VideoDownloader(videoOrUrl, options);
+
+await videoDownloader.download();
+await videoDownloader.downloadChat();
+```
+
+##### Constructor
+- `videoOrUrl`: Video object (fetched from API) or video URL;
+- `options`:
+   - `parallelDownloads`: how many fragments should be downloaded at the same time (default = 20, higher = more CPU and more network throughput).
+
+##### Methods
+- `download()`: download video; 
+- `downloadChat()`: download chat.
+
+##### Events
+- `fragments-fetched(fragmentCount: number)`: emits the total fragment count parsed from playlist;
+- `fragment-downloaded(void)`: emitted when a fragment is download;
+- `page-downloaded(void)`: emmited when a chat page is downloaded;
+- `speed(speed: number)`: emitted every second during downloads with speed in Bps.
 
 ## FAQ
 #### How to fetch `userId`

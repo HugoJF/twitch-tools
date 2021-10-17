@@ -37,10 +37,10 @@ export class VideoDownloader extends EventEmitter {
 
     private readonly speed: TransferSpeedCalculator;
 
-    constructor(video: Video | string, options: ExtraOptions = {}) {
+    constructor(videoOrUrl: Video | string, options: ExtraOptions = {}) {
         super();
 
-        this.videoOrUrl = video;
+        this.videoOrUrl = videoOrUrl;
 
         this.downloadInstances = options.parallelDownloads ?? 20;
 
