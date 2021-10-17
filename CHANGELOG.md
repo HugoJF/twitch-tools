@@ -1,3 +1,17 @@
+# [0.8.0](https://github.com/HugoJF/twitch-tools/compare/v0.7.5...v0.8.0) (2021-10-17)
+
+
+### Bug Fixes
+
+* **video-downloader:** fixes id extraction regex ([1610707](https://github.com/HugoJF/twitch-tools/commit/161070784606104aa7f8c2195b8219e3a1cd8f58))
+
+
+### Features
+
+* added declarations for events being emitted ([b7c0e2f](https://github.com/HugoJF/twitch-tools/commit/b7c0e2fc3ee86ba29c8d8e7feff1c603c6143b09))
+
+
+
 ## [0.7.5](https://github.com/HugoJF/twitch-tools/compare/v0.7.4...v0.7.5) (2021-10-13)
 
 
@@ -31,15 +45,6 @@
 ### Bug Fixes
 
 * only run publish on tag creation v2 ([55b71ab](https://github.com/HugoJF/twitch-tools/commit/55b71abbf17750bb9035edcbdc478f8b434cd04b))
-
-
-
-## [0.7.1](https://github.com/HugoJF/twitch-tools/compare/v0.7.0...v0.7.1) (2021-10-13)
-
-
-### Bug Fixes
-
-* only run publish on tag creation ([52ec285](https://github.com/HugoJF/twitch-tools/commit/52ec2853f2470e07df5286ca357c3368cd3aead7))
 
 
 
