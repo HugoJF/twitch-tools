@@ -1,6 +1,6 @@
 {
   "name": "twitch-tools",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
@@ -22,7 +22,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HugoJF/twitch-tools.git"
+    "url": "git+https://github.com/OSVFreeDom/twitch-tools.git"
   },
   "dependencies": {
     "@lifeomic/attempt": "^3.0.0",
