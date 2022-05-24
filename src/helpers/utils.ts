@@ -25,7 +25,7 @@ export function twitchClipUrlToId(url: string): string {
         throw new Error(`Could extract Twitch Clip ID from URL: ${url}`);
     }
 
-    return match[1];
+    return match[0];
 }
 
 export function splitPeriod(period: Period): Period[] {
