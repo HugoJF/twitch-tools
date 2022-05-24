@@ -26,7 +26,7 @@ export class ClipDownloader extends EventEmitter {
         }
     }
 
-    async download(): Promise<void> {
+    async download(): Promise<Clip> {
         await this.resolveClip();
 
         const clip = this.clipOrUrl as Clip;
@@ -37,8 +37,7 @@ export class ClipDownloader extends EventEmitter {
 
         if (existsSync(appPath(mp4Path))) {
             logger.verbose(`Clip ${clip.title} found at ${appPath(mp4Path)}`);
-
-            return;
+            return Promise.reject(new Error('Clip already exist'));
         }
 
         const promises: Promise<any>[] = [];
@@ -59,5 +58,6 @@ export class ClipDownloader extends EventEmitter {
         }
 
         await Promise.all(promises);
+        return Promise.resolve(clip);
     }
 }

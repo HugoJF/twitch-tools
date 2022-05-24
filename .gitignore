@@ -14,3 +14,7 @@ fast-downloader.js
 logs/
 preferences.json
 coverage/
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
