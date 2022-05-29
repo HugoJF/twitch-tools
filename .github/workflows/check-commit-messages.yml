@@ -2,7 +2,7 @@ name: Check commit messages follow Conventional Commits
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ master, development ]
 
 jobs:
   build:
