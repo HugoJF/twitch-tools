@@ -3,8 +3,6 @@ name: Run tests
 on:
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master, development ]
 
 jobs:
   tests:
@@ -49,3 +47,12 @@ jobs:
         with:
           name: Logs
           path: logs
+
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

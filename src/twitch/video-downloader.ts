@@ -17,7 +17,6 @@ import {
     writeFile
 } from '..';
 import {VideoFragmentsFetcher} from './video-fragments-fetcher';
-import {ChatDownloader} from './chat-downloader';
 
 type ExtraOptions = {
     parallelDownloads?: number;
@@ -84,14 +83,6 @@ export class VideoDownloader extends EventEmitter {
             logger.info(`Finished video ${video.id} transcode`);
         });
 
-    }
-
-    async downloadChat(): Promise<void> {
-        const chatDownloader = new ChatDownloader(this.videoOrUrl as Video);
-
-        chatDownloader.on('page-downloaded', () => this.emit('page-downloaded'));
-
-        await chatDownloader.download();
     }
 
     async download(): Promise<void> {
