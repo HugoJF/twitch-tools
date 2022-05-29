@@ -11,11 +11,8 @@ import {
     TwitchClipsApiResponse,
     TwitchUsersApiParams,
     TwitchUsersApiResponse,
-    TwitchVideoCommentsApiParams,
-    TwitchVideoCommentsApiResponse,
     TwitchVideosApiParams,
     TwitchVideosApiResponse,
-    V5Options,
     writeFile
 } from '..';
 
@@ -52,17 +49,6 @@ export class Twitch {
 
             await this.generateToken();
         }
-    }
-
-    v5<T>(options: V5Options) {
-        return axios.request<T>({
-            baseURL: 'https://api.twitch.tv/v5',
-            headers: {
-                Accept: 'application/vnd.twitchtv.v5+json',
-                'Client-ID': this.clientId,
-            },
-            ...options,
-        });
     }
 
     async helix<T>(options: HelixOptions) {
@@ -110,12 +96,6 @@ export class Twitch {
             videos: (params: TwitchVideosApiParams) => {
                 return this.helix<TwitchVideosApiResponse>({
                     url: 'videos',
-                    params,
-                });
-            },
-            videoComments: (videoId: number | string, params: TwitchVideoCommentsApiParams) => {
-                return this.v5<TwitchVideoCommentsApiResponse>({
-                    url: `videos/${videoId}/comments`,
                     params,
                 });
             },

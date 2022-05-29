@@ -47,5 +47,10 @@
   },
   "devDependencies": {
     "dotenv": "^10.0.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "dotenv/config"
+    ]
   }
 }
