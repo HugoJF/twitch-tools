@@ -14,8 +14,6 @@ export * from './helpers/utils';
 // Twitch related
 export * from './twitch/twitch';
 
-export * from './twitch/chat-downloader';
-
 export * from './twitch/clip-fetcher';
 export * from './twitch/clip-url-fetcher';
 export * from './twitch/clips-downloader';
