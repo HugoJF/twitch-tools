@@ -1,11 +1,11 @@
-name: Run tests
+name: Publish to NPM
 
 on:
   push:
     branches: [ master ]
 
 jobs:
-  tests:
+  publish:
 
     runs-on: ubuntu-latest
 
@@ -24,29 +24,6 @@ jobs:
 
       - name: Build
         run: npm run build
-
-      - name: Copy .env file
-        uses: canastro/copy-file-action@master
-        with:
-          source: '.env.actions'
-          target: '.env'
-
-      - name: Test
-        run: npm run test-ci
-        env:
-          TW_CLIENT_ID: ${{ secrets.TW_CLIENT_ID }}
-          TW_CLIENT_SECRET: ${{ secrets.TW_CLIENT_SECRET }}
-
-      - uses: codecov/codecov-action@v1
-        with:
-          fail_ci_if_error: true
-
-      - name: Upload logs
-        if: always()
-        uses: actions/upload-artifact@v1
-        with:
-          name: Logs
-          path: logs
 
       - name: Conventional Changelog Action
         uses: TriPSs/conventional-changelog-action@v3
