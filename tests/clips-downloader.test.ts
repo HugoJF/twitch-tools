@@ -1,5 +1,3 @@
-require('dotenv').config();
-import {ClipDownloader} from '../src/twitch/clip-downloader';
 import {bootLogger, ClipsDownloader, dryRuns, instance, loadInstance, YoutubedlDownloader} from '../src';
 
 test('test clip downloader will not raise exception', async () => {

@@ -1,4 +1,3 @@
-require('dotenv').config();
 import {ClipDownloader} from '../src/twitch/clip-downloader';
 import {bootLogger, dryRuns, instance, loadInstance, YoutubedlDownloader} from '../src';
 
@@ -14,7 +13,7 @@ test('test clip downloader will not raise exception', async () => {
     // Avoid full downloads
     dryRuns();
 
-    const clipUrl = 'https://clips.twitch.tv/SassyKawaiiMallardTTours-7vNzQmvsJDGoicMB?tt_content=url&tt_medium=clips_api';
+    const clipUrl = 'https://clips.twitch.tv/SassyKawaiiMallardTTours-7vNzQmvsJDGoicMB';
     const clipDownloader = new ClipDownloader(clipUrl);
 
     await clipDownloader.download();
