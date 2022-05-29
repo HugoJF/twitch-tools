@@ -1,7 +1,7 @@
-import {EventEmitter}                                  from 'events';
+import {EventEmitter} from 'events';
 import {Dict, ensureAppDirectoryExists, logger, Video} from '..';
-import {VideoDownloader}                               from './video-downloader';
-import {VideosFetcher}                                 from './videos-fetcher';
+import {VideoDownloader} from './video-downloader';
+import {VideosFetcher} from './videos-fetcher';
 
 type ExtraOptions = {
     parallelDownloads?: number;
@@ -46,10 +46,7 @@ export class VideosDownloader extends EventEmitter {
     private async downloadVideo(video: Video) {
         const videoDownloader = new VideoDownloader(video, this.options);
 
-        await Promise.all([
-            videoDownloader.download(),
-            videoDownloader.downloadChat(),
-        ]);
+        await videoDownloader.download();
 
         await videoDownloader.transcode();
     }
