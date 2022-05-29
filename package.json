@@ -5,8 +5,8 @@
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
   "scripts": {
-    "start": "npm run build && npm run go",
-    "go": "node build/index.js",
+    "dev": "npm run build && npm run go",
+    "start": "node build/index.js",
     "lint": "eslint src/**",
     "build": "tsc",
     "build-watch": "tsc -w",
