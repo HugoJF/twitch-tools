@@ -1,0 +1,14 @@
+name: Check commit messages follow Conventional Commits
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Conventional Commits
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: damianopetrungaro/action-conventional-commits@master
