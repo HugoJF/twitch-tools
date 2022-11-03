@@ -17,6 +17,7 @@ export * from './twitch/twitch';
 export * from './twitch/clip-fetcher';
 export * from './twitch/clip-url-fetcher';
 export * from './twitch/clips-downloader';
+export * from './twitch/clip-downloader';
 
 export * from './twitch/video-downloader';
 export * from './twitch/video-fragments-fetcher';
